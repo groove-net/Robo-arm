@@ -44,5 +44,6 @@ The agent was trained using the following parameters:
 ## Getting Started
 
 1. Ensure `mujoco` and `scipy` are installed.
-2. Run `python train.py` to start the Q-Learning loop.
+2. Run `python inhand_train.py` to start the Q-Learning loop.
 3. The resulting policy is saved as `q_table.npy`.
+4. Then Run `python inhand_test.py` to evaluate and see the policy in action
