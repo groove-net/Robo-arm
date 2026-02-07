@@ -356,15 +356,3 @@ Episode 1000/10000  Return=381.91  epsilon=0.083  elapsed=31286.0s
 ```
 
 You can already start to see a general improvement
-
-## Evaluation
-
-During evaluation on rotation tasks of 90°, 180°, 270°, and 360°, the agent currently achieves only partial rotation, often failing to complete even the 90° target 80% of the time. On occasions it achieved 90, it took about 40 seconds. These data points were calculated on over 200 samples. This underperformance can be attributed to several factors.
-
-Firstly, the model selected for evaluation was generated after only 1000 episodes of training due to time constraints. More training time would improve results.
-
-Secondly, the present reward structure may not sufficiently incentivize progressive rotational improvement. The rotation reward is normalized by a maximum angular velocity of 10 rad/s, which may not reflect the actual speed range achievable by the agent’s actuators. If the robot rarely reaches velocities close to this normalization value, most rotational movements will produce relatively small reward magnitudes. Consequently, Q-learning receives weak signals for rotation compared to other actions such as adjusting grip tension.
-
-Additionally, the contact reward, being proportional to the cube’s contact point count, may unintentionally over-penalize or overshadow rotation attempts. If rotation causes temporary drops in contact count, the agent may learn that staying still or loosening the grip produces more consistent rewards early in training. This can lead to a behavior policy that prioritizes grip adjustments rather than generating torque to rotate the object.
-
-Addressing these design factors will better align the agent’s incentives with the task objectives and should lead to significantly improved performance on the 90°, 180°, 270°, and 360° rotation benchmarks. However, due to time constraints these factors were not implemented. Nevertheless, I believe my current state structure and macro actions are sufficient enough to accomplish this task. Although, I do wonder if there is a better way to encode rotation progress in the state. As of now, I’m using the angular velocity in the Z direction but there may be a better way.
